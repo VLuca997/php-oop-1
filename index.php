@@ -9,12 +9,18 @@
     public float $duration;
     public string $language;
     public string $plot;
-    private bool $available;
+    private  $available;
     public  $cast;
 
 
-    public function setAvailable($available){
-        $this->available = (bool) $available ;
+    private function convertToBoolean($value)
+    {
+        return ($value === 1);
+    }
+
+    public function getAvailableAsString()
+    {
+        return $this->convertToBoolean($this->available) == 1 ?  "Sì" : "No";
     }
     public function __construct($title, $genre, $year, $duration, $language, $plot, $available, $cast, )
     {
@@ -24,7 +30,7 @@
         $this->duration = $duration;
         $this->language = $language;
         $this->plot = $plot;
-        $this->setAvailable($available);
+        $this->getAvailableAsString();
         $this->cast = $cast;
         
     }
@@ -39,7 +45,7 @@ $movie1 = new Movies
     178, 
     "Inglese", 
     "Un gruppo di avventurieri cerca di distruggere un potente anello.", 
-    true, 
+    1, 
     ["Elijah Wood", "Ian McKellen"]
 );
 
@@ -51,7 +57,7 @@ $movie2 = new Movies
     154, 
     "Inglese", 
     "Storie intrecciate di gangster, droga e violenza.", 
-    true, 
+    0, 
     ["John Travolta", "Samuel L. Jackson"],
     );
     
@@ -63,7 +69,7 @@ $movie3 = new Movies
     142, 
     "Inglese", 
     "La straordinaria vita di un uomo con un QI basso ma un grande cuore.", 
-    true, 
+    1, 
     ["Tom Hanks", "Robin Wright"]
 );
 
@@ -75,7 +81,8 @@ $movie4 = new Movies
     155, 
     "Inglese", 
     "Un generale romano diventa un gladiatore per vendicare la sua famiglia.", 
-    true, ["Russell Crowe", "Joaquin Phoenix"] 
+    1, 
+    ["Russell Crowe", "Joaquin Phoenix"] 
     );
 
 $movie5 = new Movies
@@ -86,7 +93,7 @@ $movie5 = new Movies
     169, 
     "Inglese",
     "Un gruppo di astronauti viaggia attraverso un buco nero per salvare l'umanità.", 
-    true, 
+    0, 
     ["Matthew McConaughey", "Anne Hathaway"]
 );
 
@@ -130,7 +137,7 @@ $filmList = [$movie1, $movie2, $movie3, $movie4, $movie5];
                             <p> <strong>Descrizione:</strong>  <?php echo $movie->plot  ?></p>
                         </li>
                         <li>
-                            <p> <strong>Disponibilità su piattaforma:</strong><?php echo ($movie->setAvailable($available) ? "Sì" : "No")  ?></p>
+                            <p> <strong>Disponibilità su piattaforma:</strong><?php echo $movie->getAvailableAsString() ?></p>
                         </li>
                         <li>
                             <p> <strong>Cast:</strong> <?php echo implode(", ", $movie->cast)  ?></p>
