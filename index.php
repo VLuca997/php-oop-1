@@ -9,9 +9,13 @@
     public float $duration;
     public string $language;
     public string $plot;
-    public bool $available;
+    private bool $available;
     public  $cast;
 
+
+    public function setAvailable($available){
+        $this->available = (bool) $available ;
+    }
     public function __construct($title, $genre, $year, $duration, $language, $plot, $available, $cast, )
     {
         $this->title = $title;
@@ -20,7 +24,7 @@
         $this->duration = $duration;
         $this->language = $language;
         $this->plot = $plot;
-        $this->available = $available;
+        $this->setAvailable($available);
         $this->cast = $cast;
         
     }
@@ -126,7 +130,7 @@ $filmList = [$movie1, $movie2, $movie3, $movie4, $movie5];
                             <p> <strong>Descrizione:</strong>  <?php echo $movie->plot  ?></p>
                         </li>
                         <li>
-                            <p> <strong>Disponibilità su piattaforma:</strong><?php echo ($movie->available ? "Sì" : "No")  ?></p>
+                            <p> <strong>Disponibilità su piattaforma:</strong><?php echo ($movie->setAvailable($available) ? "Sì" : "No")  ?></p>
                         </li>
                         <li>
                             <p> <strong>Cast:</strong> <?php echo implode(", ", $movie->cast)  ?></p>
@@ -144,7 +148,6 @@ $filmList = [$movie1, $movie2, $movie3, $movie4, $movie5];
 
 
 
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     </body>
 </html>
 
